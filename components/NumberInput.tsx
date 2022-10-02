@@ -9,7 +9,7 @@ type Props = {
 };
 
 const NumberInput = ({ name, label, minValue, maxValue, onChange }: Props) => (
-  <>
+  <div>
     <label htmlFor={name}>
       { label }
     </label>
@@ -21,7 +21,7 @@ const NumberInput = ({ name, label, minValue, maxValue, onChange }: Props) => (
       onChange={onChange}
       defaultValue={minValue}
     />
-  </>
+  </div>
 );
 
 export default NumberInput;

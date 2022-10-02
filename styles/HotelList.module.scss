@@ -1,0 +1,15 @@
+@import "variables";
+
+.card {
+    border: 1px solid $dark-slate;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.hotelList {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+}
+

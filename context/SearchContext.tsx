@@ -28,8 +28,16 @@ export const SearchProvider = ({ children }: Props) => {
     }));
   };
 
+  const handlePriceChange = (minPrice: number, maxPrice: number): void => {
+    setSearchParams(prevState => ({
+      ...prevState,
+      minPrice,
+      maxPrice,
+    }));
+  };
+
   return (
-    <SearchContext.Provider value={{ searchParams, handleChange }}>
+    <SearchContext.Provider value={{ searchParams, handleChange, handlePriceChange }}>
       { children }
     </SearchContext.Provider>
   );
