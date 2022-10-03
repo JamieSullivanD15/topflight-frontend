@@ -1,14 +1,19 @@
 @import "variables";
 
 .container {
-    padding: 0 100px;
+    padding: 0 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 200px;
+
+    @media (max-width: 1200px) {
+        padding: 0 100px;
+    }
 }
 
 .header {
     text-align: center;
-    margin: $margin-m 0;
+    margin: $space-m 0;
 }

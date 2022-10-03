@@ -1,3 +1,4 @@
+@import "variables";
 
 .container {
   display: flex;
@@ -24,19 +25,19 @@
 }
 
 .slider__track {
-  background-color: #ABB0B8;
+  background-color: $light-slate;
   width: 100%;
   z-index: 1;
 }
 
 .slider__range {
-  background-color: #6F7378;
+  background-color: $dark-slate;
   z-index: 2;
 }
 
 .slider__left_value,
 .slider__right_value {
-  color: #ABB0B8;
+  color: $light-slate;
   font-size: 12px;
   margin-top: 20px;
 }
@@ -77,7 +78,7 @@
   background-color: #f1f5f7;
   border: none;
   border-radius: 50%;
-  box-shadow: 0 0 1px 1px #ABB0B8;
+  box-shadow: 0 0 1px 1px $light-slate;
   cursor: pointer;
   height: 18px;
   width: 18px;
@@ -91,7 +92,7 @@
   background-color: #f1f5f7;
   border: none;
   border-radius: 50%;
-  box-shadow: 0 0 1px 1px #ABB0B8;
+  box-shadow: 0 0 1px 1px $light-slate;
   cursor: pointer;
   height: 18px;
   width: 18px;

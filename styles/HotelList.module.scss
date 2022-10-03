@@ -2,14 +2,75 @@
 
 .card {
     border: 1px solid $dark-slate;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 4px;
+    padding: $space-m;
+    margin-top: $space-s;
+    border-radius: $radius-m;
 }
 
-.hotelList {
+.hotel__list {
     width: 100%;
     list-style: none;
     padding: 0;
+
+    h2 {
+        text-align: center;
+        margin-top: 100px;
+    }
+}
+
+.hotel__item {
+    color: $light-slate;
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+        color: $dark-slate;
+        margin-top: 0;
+        margin-bottom: $space-s;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    &__heading {
+        display: flex;
+    }
+
+    &__stars {
+        margin-left: $space-s;
+        margin-top: 4px;
+    }
+
+    &__rooms {
+        display: flex;
+        margin: 24px 0;
+        justify-content: space-between;
+    }
+}
+
+.star {
+    color: $light-yellow;
+}
+
+.arrow {
+    font-size: 70px;
+    color: $light-yellow;
+
+    &:hover {
+        cursor: pointer;
+        color: $mid-yellow;
+    }
+}
+
+.photos__container {
+    display: flex;
+    align-items: center;
 }
 

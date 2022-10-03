@@ -1,4 +1,5 @@
 import React, {ChangeEvent, ChangeEventHandler} from 'react';
+import elementStyles from '../styles/Elements.module.scss';
 
 type Props = {
   name: string;
@@ -20,6 +21,7 @@ const NumberInput = ({ name, label, minValue, maxValue, onChange }: Props) => (
       max={maxValue.toString()}
       onChange={onChange}
       defaultValue={minValue}
+      className={elementStyles.input}
     />
   </div>
 );

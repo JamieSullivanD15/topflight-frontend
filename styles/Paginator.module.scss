@@ -1,0 +1,48 @@
+@import "variables";
+
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.btnContainer {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    background-color: white;
+    border: 1px solid $dark-slate;
+    color: $dark-slate;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 6px;
+
+    &:hover {
+        background-color: $faint-slate;
+    }
+
+    &__active {
+        background-color: $faint-slate;
+    }
+
+    &__disabled {
+        cursor: default;
+    }
+}
+
+.arrow {
+    color: $dark-slate;
+    font-size: 28px;
+    cursor: pointer;
+
+    &__disabled {
+        color: $faint-slate;
+        cursor: default;
+    }
+}

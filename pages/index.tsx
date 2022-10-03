@@ -7,29 +7,16 @@ import {useContext, useEffect, useState} from "react";
 import SearchContext from "../context/SearchContext";
 import HotelList from "../components/HotelList";
 import Spinner from "../components/Spinner";
+import Paginator from "../components/Paginator";
 
 type Props = {
   cities: Array<string>;
   maxPriceValue: number;
-  apiUrl: string;
 };
 
-const Home = ({ cities, maxPriceValue, apiUrl }: Props) => {
+const Home = ({ cities, maxPriceValue }: Props) => {
   // @ts-ignore
-  const { searchParams } = useContext(SearchContext);
-  const { numPeople, minPrice, maxPrice } = searchParams;
-  const [ hotels, setHotels ] = useState([]);
-  const [ loading, setLoading ] = useState(false);
-
-  const handleSearch = async () => {
-    setLoading(true);
-    fetch(`${apiUrl}/hotels/dublin/${minPrice}/${maxPrice}/${numPeople}`)
-      .then((res: Response) => res.json())
-      .then((data) => {
-        setHotels(data);
-        setLoading(false);
-      });
-  }
+  const { handleSearch, hotels, loading, showError, totalResults } = useContext(SearchContext);
 
   return (
     <div className={styles.container}>
@@ -38,16 +25,22 @@ const Home = ({ cities, maxPriceValue, apiUrl }: Props) => {
         <meta name="description" content="Topflight hotels"/>
       </Head>
       <h1 className={styles.header}>Topflight Hotels</h1>
-      <SearchContainer cities={cities} maxPrice={maxPriceValue} handleSearch={handleSearch} />
+      <SearchContainer
+        cities={cities}
+        maxPrice={maxPriceValue}
+        handleSearch={handleSearch}
+        showError={showError}
+      />
       {
-        loading ? <Spinner /> : <HotelList hotels={hotels} />
+        loading ? <Spinner /> : <HotelList hotels={hotels} totalResults={totalResults} />
       }
+      <Paginator />
     </div>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const citiesRes = await fetch(`${apiUrl}/hotels/cities`);
   const maxPriceRes = await fetch(`${apiUrl}/hotels/maxPrice`);
   const cities = await citiesRes.json();
@@ -57,7 +50,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       cities,
       maxPriceValue,
-      apiUrl,
     }
   }
 };

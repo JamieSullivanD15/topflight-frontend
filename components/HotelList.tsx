@@ -21,16 +21,21 @@ export type RoomType = {
 
 type Props = {
   hotels: Array<Hotel>;
+  totalResults: number;
 };
 
-const HotelList = ({ hotels }: Props) => (
-  <ul className={styles.hotelList}>
+const HotelList = ({ hotels, totalResults }: Props) => (
+  <ul className={styles.hotel__list}>
     {
-      hotels.map(hotel => (
-        <article className={styles.card} key={hotel.id}>
-          <HotelItem hotel={hotel} />
-        </article>
-      ))
+      !totalResults
+        ? <h2>No results</h2>
+        : (
+          hotels.map(hotel => (
+            <article className={styles.card} key={hotel.id}>
+              <HotelItem hotel={hotel} />
+            </article>
+          ))
+        )
     }
   </ul>
 );
