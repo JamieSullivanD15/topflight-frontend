@@ -10,21 +10,23 @@ const Paginator = () => {
   // @ts-ignore
   const { paginationParams, handlePageSizeChange, handlePageChange, totalResults } = useContext(SearchContext);
   const { pageSize, page } = paginationParams;
-  const pages = Math.ceil(totalResults / pageSize);
+  const numPages = Math.ceil(totalResults / pageSize);
   const previousDisabled = page === 1;
-  const nextDisabled = page === pages;
+  const nextDisabled = page === numPages;
 
   const getButtons = () => {
-    let buttons = [];
-    for (let i = 0; i < pages; ++i) {
+    const buttons = [];
+
+    for (let i = 0; i < numPages; ++i) {
+      const disabled = page === (i + 1);
+
       buttons.push(
         <button
           className={`
-            ${styles.button}
-            ${page === (i + 1) ? styles.button__active : ''}
-            ${pages === 1 ? styles.button__disable : ''}
+            ${styles.circleButton}
+            ${disabled ? styles.button__disabled : ''}
           `}
-          disabled={pages === 1}
+          disabled={disabled}
           onClick={() => handlePageChange(i + 1)}
           key={i}
         >
@@ -32,6 +34,7 @@ const Paginator = () => {
         </button>
       );
     }
+
     return buttons;
   };
 
@@ -42,9 +45,7 @@ const Paginator = () => {
           className={elementStyles.iconButton}
           disabled={previousDisabled}
           onClick={() => {
-            if (!previousDisabled) {
-              handlePageChange(page - 1);
-            }
+            if (!previousDisabled) handlePageChange(page - 1);
           }}
         >
           <FontAwesomeIcon
@@ -60,9 +61,7 @@ const Paginator = () => {
           className={elementStyles.iconButton}
           disabled={nextDisabled}
           onClick={() => {
-            if (!nextDisabled) {
-              handlePageChange(page + 1);
-            }
+            if (!nextDisabled) handlePageChange(page + 1);
           }}
         >
           <FontAwesomeIcon

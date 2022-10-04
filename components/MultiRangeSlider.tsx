@@ -64,7 +64,6 @@ const MultiRangeSlider = ({ min, max }: Props) => {
           minPriceRef.current = value;
         }}
         className={`${styles.thumb} ${styles.thumb__left}`}
-        style={{ zIndex: minPrice > max - 100 && "5" }}
       />
       <input
         type="range"
@@ -83,8 +82,6 @@ const MultiRangeSlider = ({ min, max }: Props) => {
       <div className={styles.slider}>
         <div className={styles.slider__track} />
         <div ref={range} className={styles.slider__range} />
-        <div className={styles.slider__left_value}>{minPrice}</div>
-        <div className={styles.slider__right_value}>{maxPrice}</div>
       </div>
     </div>
   );

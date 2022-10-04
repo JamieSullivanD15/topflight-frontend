@@ -8,15 +8,14 @@ import elementStyles from '../styles/Elements.module.scss';
 
 type Props = {
   cities: Array<string>;
-  maxPrice: number;
+  maxPriceValue: number;
   handleSearch: Function;
   showError: boolean;
 };
 
-const SearchContainer = ({ cities, maxPrice, handleSearch, showError }: Props) => {
+const SearchContainer = ({ cities, maxPriceValue, handleSearch, showError }: Props) => {
   // @ts-ignore
-  const { searchParams, handleChange } = useContext(SearchContext);
-  const { numPeople } = searchParams;
+  const { handleChange } = useContext(SearchContext);
 
   return (
     <>
@@ -24,7 +23,7 @@ const SearchContainer = ({ cities, maxPrice, handleSearch, showError }: Props) =
         <NumberInput
           name='numPeople'
           label='Number of Guests'
-          minValue={numPeople}
+          minValue={0}
           maxValue={100}
           onChange={handleChange}
         />
@@ -35,7 +34,7 @@ const SearchContainer = ({ cities, maxPrice, handleSearch, showError }: Props) =
           defaultOption='Choose city'
           onChange={handleChange}
         />
-        <PriceRange label='Price per person' maxPrice={maxPrice} />
+        <PriceRange label='Price per person' maxPriceValue={maxPriceValue} />
       </div>
       <div className={styles.btn__container}>
         <button onClick={() => handleSearch()} className={elementStyles.button}>

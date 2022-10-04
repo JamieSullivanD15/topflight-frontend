@@ -21,13 +21,13 @@ export type RoomType = {
 
 type Props = {
   hotels: Array<Hotel>;
-  totalResults: number;
+  showNoResults: boolean;
 };
 
-const HotelList = ({ hotels, totalResults }: Props) => (
+const HotelList = ({ hotels, showNoResults }: Props) => (
   <ul className={styles.hotel__list}>
     {
-      !totalResults
+      showNoResults
         ? <h2>No results</h2>
         : (
           hotels.map(hotel => (

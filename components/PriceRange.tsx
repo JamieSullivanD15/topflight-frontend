@@ -5,10 +5,13 @@ import SearchContext from "../context/SearchContext";
 
 type Props = {
   label: string;
-  maxPrice: number;
+  maxPriceValue: number;
 };
 
-const PriceRange = ({ label, maxPrice }: Props) => {
+const PriceRange = ({ label, maxPriceValue }: Props) => {
+  // @ts-ignore
+  const { searchParams } = useContext(SearchContext);
+  const { minPrice, maxPrice } = searchParams;
 
   return (
     <div className={styles.container}>
@@ -17,8 +20,20 @@ const PriceRange = ({ label, maxPrice }: Props) => {
       </label>
       <MultiRangeSlider
         min={0}
-        max={maxPrice}
+        max={maxPriceValue}
       />
+      <div className={styles.values}>
+        <div className={styles.slider__left_value}>
+          {minPrice}
+        </div>
+        {' - '}
+        <div className={styles.slider__right_value}>
+          {maxPrice}
+        </div>
+        <div>
+          €
+        </div>
+      </div>
     </div>
   );
 };

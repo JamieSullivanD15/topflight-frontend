@@ -16,7 +16,8 @@ type Props = {
 
 const Home = ({ cities, maxPriceValue }: Props) => {
   // @ts-ignore
-  const { handleSearch, hotels, loading, showError, totalResults } = useContext(SearchContext);
+  const { handleSearch, hotels, loading, showError, totalResults, hasSearched } = useContext(SearchContext);
+  const showNoResults = !totalResults && hasSearched;
 
   return (
     <div className={styles.container}>
@@ -27,12 +28,12 @@ const Home = ({ cities, maxPriceValue }: Props) => {
       <h1 className={styles.header}>Topflight Hotels</h1>
       <SearchContainer
         cities={cities}
-        maxPrice={maxPriceValue}
+        maxPriceValue={maxPriceValue}
         handleSearch={handleSearch}
         showError={showError}
       />
       {
-        loading ? <Spinner /> : <HotelList hotels={hotels} totalResults={totalResults} />
+        loading ? <Spinner /> : <HotelList hotels={hotels} showNoResults={showNoResults} />
       }
       <Paginator />
     </div>

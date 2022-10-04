@@ -11,6 +11,7 @@ export const SearchProvider = ({ children }: Props) => {
   const [ hotels, setHotels ] = useState([]);
   const [ loading, setLoading ] = useState(false);
   const [ showError, setShowError ] = useState(false);
+  const [ hasSearched, setHasSearched ] = useState(false);
   const [ totalResults, setTotalResults ] = useState(0);
   const [searchParams, setSearchParams] = useState(
     {
@@ -75,6 +76,8 @@ export const SearchProvider = ({ children }: Props) => {
       setShowError(false);
     }
 
+    if (!hasSearched) setHasSearched(true);
+
     setLoading(true);
 
     fetch(`${url}${query}`)
@@ -100,6 +103,7 @@ export const SearchProvider = ({ children }: Props) => {
         hotels,
         loading,
         showError,
+        hasSearched,
         totalResults,
         searchParams,
         paginationParams,

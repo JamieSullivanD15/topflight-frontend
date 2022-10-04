@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.button {
+.circleButton {
     background-color: white;
     border: 1px solid $dark-slate;
     color: $dark-slate;
@@ -27,11 +27,8 @@
         background-color: $faint-slate;
     }
 
-    &__active {
-        background-color: $faint-slate;
-    }
-
     &__disabled {
+        background-color: $faint-slate;
         cursor: default;
     }
 }
