@@ -26,24 +26,24 @@ const HotelItem = ({ hotel }: Props) => {
   };
 
   const getRooms = () => {
-    return hotel.roomTypes.reduce((roomCombosMap: Map<string, Array<any>>, room: RoomType): any => {
+    return hotel.roomTypes.reduce((roomList: Array<any>, room: RoomType): any => {
       const { numRoomsAvailable, maxPeople, pricePerPerson, typeName } = room;
 
-      if (!numRoomsAvailable || maxPeople > numPeople) return roomCombosMap;
+      if (!numRoomsAvailable || maxPeople > numPeople) return roomList;
 
       // check single room combination
       if (numRoomsAvailable && (numPeople % maxPeople === 0)) {
         const numRooms = numPeople / maxPeople;
-        if (numRooms > numRoomsAvailable) return roomCombosMap;
+        if (numRooms > numRoomsAvailable) return roomList;
         const price = numPeople * pricePerPerson;
         const description = `${numRooms} ${typeName} Room${numRooms > 1 ? 's' : ''}`;
-        roomCombosMap.set(typeName, [{ description, price }]);
+        roomList.push([{ description, price }]);
       } else {
-        roomCombosMap.set(typeName, getRoomCombinations(room));
+        roomList.push(getRoomCombinations(room));
       }
 
-      return roomCombosMap;
-    }, new Map());
+      return roomList;
+    }, []);
   };
 
   const getRoomCombinations = (room: RoomType): Array<any> => {
@@ -77,7 +77,7 @@ const HotelItem = ({ hotel }: Props) => {
         ++roomCount;
         totalPeopleAccommodated += room.maxPeople;
 
-        if (numPeople % totalPeopleAccommodated === 0) {
+        if (totalPeopleAccommodated === numPeople) {
           addRoom = true;
           description += ` + ${roomCount} ${room.typeName} Room${roomCount > 1 ? 's' : ''}`
           break;
@@ -87,12 +87,7 @@ const HotelItem = ({ hotel }: Props) => {
       return addRoom ? { description, price } : null;
     }).filter((roomCombo: any) => roomCombo);
   }
-
-
-  console.log('\n\n\n\n');
-  console.log(hotel);
-  console.log(getRooms());
-
+  
   return (
     <li className={styles.hotel__item}>
       <div className={styles.hotel__item__info}>
@@ -106,13 +101,22 @@ const HotelItem = ({ hotel }: Props) => {
           </div>
         </div>
         <div>
-          <div className={styles.hotel__item__rooms}>
-            <span>Room description</span>
-            <span>Room price</span>
-          </div>
-          <div className={styles.hotel__item__rooms}>
-            <span>Room description</span>
-            <span>Room price</span>
+          <div>
+            {
+              getRooms().map((roomCombo: any) => (
+                roomCombo.map((room: any, i: number) => (
+                  <div key={i}  className={styles.hotel__item__rooms}>
+                    <span>
+                    { room.description }
+                  </span>
+                  <span>
+                    { room.price }
+                    {'€ / night'}
+                  </span>
+                  </div>
+                ))
+              ))
+            }
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ const Paginator = () => {
         <button
           className={`
             ${styles.circleButton}
-            ${disabled ? styles.button__disabled : ''}
+            ${disabled ? styles.circleButton__disabled : ''}
           `}
           disabled={disabled}
           onClick={() => handlePageChange(i + 1)}
