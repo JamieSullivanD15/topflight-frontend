@@ -1,9 +1,25 @@
 import {ReactNode, createContext, useState, useEffect, useRef, ChangeEvent, ChangeEventHandler} from "react";
-import {Hotel, RoomType} from "../components/HotelList";
 
 type Props = {
   children?: ReactNode;
 }
+
+export type Hotel = {
+  id: number;
+  name: string;
+  stars: number;
+  city: string;
+  address: string;
+  photos: Array<string>;
+  roomTypes: Array<any>;
+};
+
+export type RoomType = {
+  typeName: string;
+  pricePerPerson: number;
+  maxPeople: number;
+  numRoomsAvailable: number;
+};
 
 const SearchContext = createContext({});
 

@@ -1,23 +1,7 @@
 import React from 'react';
 import styles from '../styles/HotelList.module.scss';
 import HotelItem from "./HotelItem";
-
-export type Hotel = {
-  id: number;
-  name: string;
-  stars: number;
-  city: string;
-  address: string;
-  photos: Array<string>;
-  roomTypes: Array<RoomType>;
-};
-
-export type RoomType = {
-  typeName: string;
-  pricePerPerson: number;
-  maxPeople: number;
-  numRoomsAvailable: number;
-};
+import { type Hotel } from "../context/SearchContext";
 
 type Props = {
   hotels: Array<Hotel>;

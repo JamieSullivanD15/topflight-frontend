@@ -1,12 +1,11 @@
 import React, {useContext, useState} from 'react';
 import styles from '../styles/HotelList.module.scss';
 import elementStyles from '../styles/Elements.module.scss';
-import type {Hotel, RoomType} from "./HotelList";
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faCaretRight, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import {forEachComment} from "tsutils";
-import SearchContext from "../context/SearchContext";
+import SearchContext, { type Hotel } from "../context/SearchContext";
 
 type Props = {
   hotel: Hotel;
@@ -43,12 +42,12 @@ const HotelItem = ({ hotel }: Props) => {
                 roomType.map((roomCombo: any, i: number) => (
                   <div key={i} className={styles.hotel__item__rooms}>
                     <span>
-                    { roomCombo.description }
-                  </span>
-                  <span>
-                    { roomCombo.price }
-                    {'€ / night'}
-                  </span>
+                      { roomCombo.description }
+                    </span>
+                    <span>
+                      { roomCombo.price }
+                      {'€ / night'}
+                    </span>
                   </div>
                 ))
               ))

@@ -24,11 +24,11 @@ const PriceRange = ({ label, maxPriceValue }: Props) => {
       />
       <div className={styles.values}>
         <div className={styles.slider__left_value}>
-          {minPrice}
+          { minPrice }
         </div>
         {' - '}
         <div className={styles.slider__right_value}>
-          {maxPrice}
+          { maxPrice }
         </div>
         <div>
           €
