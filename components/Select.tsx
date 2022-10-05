@@ -6,7 +6,7 @@ type Props = {
   label: string;
   options: Array<string>;
   defaultOption?: string;
-  onChange: ChangeEventHandler<HTMLSelectElement>;
+  onChange: ChangeEventHandler<HTMLElement>;
 };
 
 const Select = ({ name, label, options, defaultOption, onChange }: Props) => (

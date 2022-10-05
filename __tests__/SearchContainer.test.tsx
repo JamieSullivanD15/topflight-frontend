@@ -27,6 +27,7 @@ describe('SearchContainer', () => {
           cities={['dublin', 'madrid']}
           maxPriceValue={100}
           handleSearch={() => {}}
+          handleChange={() => {}}
           showError
         />
       );
@@ -43,6 +44,7 @@ describe('SearchContainer', () => {
         cities={['dublin', 'madrid']}
         maxPriceValue={100}
         handleSearch={() => {}}
+        handleChange={() => {}}
         showError
       />
     );

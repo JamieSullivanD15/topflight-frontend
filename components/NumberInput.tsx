@@ -6,7 +6,7 @@ type Props = {
   label: string;
   minValue: number;
   maxValue: number;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLElement>;
 };
 
 const NumberInput = ({ name, label, minValue, maxValue, onChange }: Props) => (

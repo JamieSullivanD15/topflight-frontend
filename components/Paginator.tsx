@@ -18,7 +18,8 @@ const Paginator = () => {
     const buttons = [];
 
     for (let i = 0; i < numPages; ++i) {
-      const disabled = page === (i + 1);
+      const btnValue = i + 1;
+      const disabled = page === btnValue;
 
       buttons.push(
         <button
@@ -27,10 +28,10 @@ const Paginator = () => {
             ${disabled ? styles.circleButton__disabled : ''}
           `}
           disabled={disabled}
-          onClick={() => handlePageChange(i + 1)}
+          onClick={() => handlePageChange(btnValue)}
           key={i}
         >
-          { i + 1 }
+          { btnValue }
         </button>
       );
     }
