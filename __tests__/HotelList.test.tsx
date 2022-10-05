@@ -17,6 +17,20 @@ const hotels = [
   }
 ];
 
+const hotelWithNoRooms = [
+  {
+    id: 1,
+    name: 'Test hotel',
+    stars: 4,
+    city: 'Test city',
+    address: 'Test address',
+    photos: ['http://photo-1', 'http://photo-2'],
+    roomTypes: [
+      []
+    ],
+  }
+];
+
 describe('HotelList', () => {
     it('renders no results message', () => {
       render(
@@ -29,6 +43,20 @@ describe('HotelList', () => {
       const noResultsMessage = screen.getByText('No results');
       expect(noResultsMessage).toBeInTheDocument();
     });
+});
+
+describe('HotelList', () => {
+  it('renders no rooms available', () => {
+    render(
+      <HotelList
+        hotels={hotelWithNoRooms}
+        showNoResults={false}
+      />
+    );
+
+    const noRoomsMessage = screen.getByText('No rooms available');
+    expect(noRoomsMessage).toBeInTheDocument();
+  });
 });
 
 describe('HotelList', () => {

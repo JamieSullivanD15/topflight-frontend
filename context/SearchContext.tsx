@@ -129,7 +129,9 @@ export const SearchProvider = ({ children }: Props) => {
       }
 
       return roomList;
-    }, []);
+    }, [])
+      .filter((roomCombos: any) => roomCombos.length > 0)
+      .sort((a: any, b: any) => b[0].price - a[0].price);
   };
 
   const getRoomCombinations = (hotel: Hotel, room: RoomType): Array<any> => {

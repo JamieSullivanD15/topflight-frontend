@@ -1,11 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/HotelList.module.scss';
 import elementStyles from '../styles/Elements.module.scss';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faCaretRight, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import {forEachComment} from "tsutils";
-import SearchContext, { type Hotel } from "../context/SearchContext";
+import { type Hotel } from "../context/SearchContext";
 
 type Props = {
   hotel: Hotel;
@@ -14,6 +14,9 @@ type Props = {
 const HotelItem = ({ hotel }: Props) => {
   // @ts-ignore
   const [photoIndex, setPhotoIndex] = useState(0);
+  const hasRooms = hotel.roomTypes.some((roomType: any) => (
+    roomType.length > 0
+  ));
 
   const getStars = () => {
     let stars = [];
@@ -38,19 +41,21 @@ const HotelItem = ({ hotel }: Props) => {
         <div>
           <div>
             {
-              hotel.roomTypes.map((roomType: any) => (
-                roomType.map((roomCombo: any, i: number) => (
-                  <div key={i} className={styles.hotel__item__rooms}>
-                    <span>
-                      { roomCombo.description }
-                    </span>
-                    <span>
-                      { roomCombo.price }
-                      {'€ / night'}
-                    </span>
-                  </div>
-                ))
-              ))
+              hasRooms
+                ? hotel.roomTypes.map((roomType: any) => (
+                    roomType.map((roomCombo: any, i: number) => (
+                      <div key={i} className={styles.hotel__item__rooms}>
+                        <span>
+                          { roomCombo.description }
+                        </span>
+                        <span>
+                          { roomCombo.price }
+                          {'€ / night'}
+                        </span>
+                      </div>
+                    ))
+                  ))
+                : <span>No rooms available</span>
             }
           </div>
         </div>
