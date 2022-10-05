@@ -1,4 +1,5 @@
 import {ReactNode, createContext, useState, useEffect, useRef, ChangeEvent, ChangeEventHandler} from "react";
+import {Hotel, RoomType} from "../components/HotelList";
 
 type Props = {
   children?: ReactNode;
@@ -82,12 +83,81 @@ export const SearchProvider = ({ children }: Props) => {
 
     fetch(`${url}${query}`)
       .then((res: Response) => res.json())
-      .then((data) => {
-        // @ts-ignore
-        setHotels(data.hotels);
+      .then((data: any) => {
+        const hotels = data.hotels.map((hotel: Hotel) => {
+          hotel.roomTypes = getRooms(hotel);
+          return hotel;
+        });
+        setHotels(hotels);
         setTotalResults(data.totalResults);
         setLoading(false);
       });
+  }
+
+  const getRooms = (hotel: Hotel) => {
+    return hotel.roomTypes.reduce((roomList: Array<any>, room: RoomType): any => {
+      const { numRoomsAvailable, maxPeople, pricePerPerson, typeName } = room;
+      const { numPeople } = searchParams;
+
+      if (!numRoomsAvailable || maxPeople > numPeople) return roomList;
+
+      // check single room combination
+      if (numRoomsAvailable && (numPeople % maxPeople === 0)) {
+        const numRooms = numPeople / maxPeople;
+        if (numRooms > numRoomsAvailable) return roomList;
+        const price = numPeople * pricePerPerson;
+        const description = `${numRooms} ${typeName} Room${numRooms > 1 ? 's' : ''}`;
+        roomList.push([{ description, price }]);
+      } else {
+        roomList.push(getRoomCombinations(hotel, room));
+      }
+
+      return roomList;
+    }, []);
+  };
+
+  const getRoomCombinations = (hotel: Hotel, room: RoomType): Array<any> => {
+    const { numRoomsAvailable, maxPeople, pricePerPerson, typeName } = room;
+    const { numPeople } = searchParams;
+    let initialPeopleAccommodated = 0;
+
+    for (let i = 0; i < numRoomsAvailable; i++) {
+      if ((initialPeopleAccommodated + maxPeople) < numPeople) {
+        initialPeopleAccommodated += maxPeople;
+        continue;
+      }
+      break;
+    }
+
+    const roomsTaken = initialPeopleAccommodated / maxPeople;
+
+    return hotel.roomTypes.map((room: RoomType) => {
+      let description = `${roomsTaken} ${typeName} Room${roomsTaken > 1 ? 's' : ''}`;
+      let price = roomsTaken * pricePerPerson;
+      let totalPeopleAccommodated = initialPeopleAccommodated;
+      let roomCount = 0;
+      let addRoom = false;
+
+      for (let i = 0; i < room.numRoomsAvailable; i++) {
+        if ((totalPeopleAccommodated + room.maxPeople) > numPeople
+          || room.maxPeople === numPeople
+        ) {
+          break;
+        }
+
+        price += room.pricePerPerson;
+        ++roomCount;
+        totalPeopleAccommodated += room.maxPeople;
+
+        if (totalPeopleAccommodated === numPeople) {
+          addRoom = true;
+          description += ` + ${roomCount} ${room.typeName} Room${roomCount > 1 ? 's' : ''}`
+          break;
+        }
+      }
+
+      return addRoom ? { description, price } : null;
+    }).filter((roomCombo: any) => roomCombo);
   }
 
   useEffect(() => {
